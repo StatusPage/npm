@@ -18,7 +18,7 @@ namespace :npm do
     end
   end
 
-  before 'deploy:updated', 'npm:install'
+  before 'deploy:finalize_update', 'npm:install'
 
   desc <<-DESC
         Remove extraneous packages via npm. This command is executed within \
