@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version       = '1.0.0'
   spec.authors       = ['Scott Walkinshaw']
   spec.email         = ['scott.walkinshaw@gmail.com']
-  spec.description   = %q{npm support for Capistrano 3.x}
-  spec.summary       = %q{npm support for Capistrano 3.x}
+  spec.description   = %q{npm support for Capistrano 2.x}
+  spec.summary       = %q{npm support for Capistrano 2.x}
   spec.homepage      = 'https://github.com/capistrano/npm'
   spec.license       = 'MIT'
 
@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'capistrano', '>= 3.0.0.pre'
+  spec.add_dependency 'capistrano', '>= 2.15'
 
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'
