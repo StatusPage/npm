@@ -1,5 +1,6 @@
-namespace :npm do
-  desc <<-DESC
+Capistrano::Configuration.instance(true).load do
+  namespace :npm do
+    desc <<-DESC
         Install the project dependencies via npm. By default, devDependencies \
         will not be installed. The install command is executed \
         with the --production and --silent flags.
@@ -10,17 +11,17 @@ namespace :npm do
           set :npm_flags, '--production --silent'
           set :npm_roles, :all
     DESC
-  task :install do
-    on roles fetch(:npm_roles) do
-      within fetch(:npm_target_path, release_path) do
-        execute :npm, 'install', fetch(:npm_flags)
+    task :install do
+      on roles fetch(:npm_roles) do
+        within fetch(:npm_target_path, release_path) do
+          execute :npm, 'install', fetch(:npm_flags)
+        end
       end
     end
-  end
 
-  before 'deploy:finalize_update', 'npm:install'
+    before 'deploy:finalize_update', 'npm:install'
 
-  desc <<-DESC
+    desc <<-DESC
         Remove extraneous packages via npm. This command is executed within \
         the same context as npm install using the npm_roles and npm_target_path \
         variables.
@@ -35,19 +36,20 @@ namespace :npm do
 
           before 'npm:install', 'npm:prune'
     DESC
-  task :prune do
-    on roles fetch(:npm_roles) do
-      within fetch(:npm_target_path, release_path) do
-        execute :npm, 'prune', fetch(:npm_prune_flags)
+    task :prune do
+      on roles fetch(:npm_roles) do
+        within fetch(:npm_target_path, release_path) do
+          execute :npm, 'prune', fetch(:npm_prune_flags)
+        end
       end
     end
   end
-end
 
-namespace :load do
-  task :defaults do
-    set :npm_flags, '--production --silent'
-    set :npm_prune_flags, '--production'
-    set :npm_roles, :all
+  namespace :load do
+    task :defaults do
+      set :npm_flags, '--production --silent'
+      set :npm_prune_flags, '--production'
+      set :npm_roles, :all
+    end
   end
 end
